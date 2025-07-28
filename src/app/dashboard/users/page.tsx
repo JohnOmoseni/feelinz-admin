@@ -53,7 +53,6 @@ function Users() {
     const usersArray = Array.isArray(users) ? users : [];
     return usersArray;
   }, [users]);
-  // const tableData = useMemo(() => [users, ...test_data], [users, test_data]);
 
   return (
     <>

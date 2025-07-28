@@ -23,6 +23,7 @@ interface UserResponse {
   state: string;
   city: string;
   zodiac: string;
+  paid: boolean;
   faith: string;
   height: string;
   size: string;

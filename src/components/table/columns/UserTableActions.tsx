@@ -3,6 +3,7 @@ import { truncateString } from "@/lib";
 import { useMutateUser, useNotifyUser } from "@/server/actions/users/useUsers";
 import { Link } from "react-router-dom";
 import { useMemo, useState } from "react";
+import { cn } from "@/lib/utils";
 import dayjs from "dayjs";
 
 export const UserTableAction = ({ userInfo }: { userInfo: UserResponse }) => {
@@ -32,6 +33,10 @@ export const UserTableAction = ({ userInfo }: { userInfo: UserResponse }) => {
       {
         label: "Location",
         value: location,
+      },
+      {
+        label: "Payment Status",
+        value: userInfo?.paid ? "Paid" : "Not Paid",
       },
     ],
     [userInfo]
@@ -72,11 +77,22 @@ export const UserTableAction = ({ userInfo }: { userInfo: UserResponse }) => {
       <h3 className="">{fullName}</h3>
       <p className="truncate">{userInfo.email ? truncateString(userInfo.email, 40) : "N/A"}</p>
 
-      <div className="flex-column  gap-3.5 my-3">
+      <div className="grid grid-cols-2 gap-3.5 my-3 min-w-[280px]">
         {info.map((item, idx) => (
           <div key={idx} className="row-flex-start gap-3 text-sm">
-            <span className="min-w-[5ch]">{item.label}:</span>
-            <span className="">{item.value}</span>
+            <span className="min-w-[max(8ch,_min-content)] w-max">{item.label}:</span>
+            <span
+              className={cn(
+                "",
+                item.label === "Payment Status"
+                  ? item.value === "Paid"
+                    ? "text-green-600"
+                    : "text-red-500 whitespace-nowrap"
+                  : ""
+              )}
+            >
+              {item.value}
+            </span>
           </div>
         ))}
       </div>

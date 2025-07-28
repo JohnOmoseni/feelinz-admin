@@ -15,6 +15,7 @@ import { useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fallback_profile } from "@/constants/icons";
 import { StatusBadge } from "@/components/reuseables/StatusBadge";
+import { cn } from "@/lib/utils";
 
 const formatKey = (key: string) => {
   const words = key.split("_");
@@ -93,6 +94,7 @@ function UserDetails() {
       education: user?.faith || "",
       faith: user?.faith || "",
       bio: user?.bio || "",
+      paid: user?.paid ? "Paid" : "Not Paid",
       profile_pic: user?.avatar || fallback_profile,
       selfie: user?.selfie || fallback_profile,
       images: [],
@@ -168,6 +170,14 @@ function UserDetails() {
           <div className="flex-column items-center gap-7">
             <div>
               <h2 className="text-center">{userInfo.first_name}</h2>
+              <p
+                className={cn(
+                  "text-center text-sm font-semibold font-inter max-w-[60ch] mx-auto",
+                  userInfo.paid === "Paid" ? "text-green-600" : "text-red-500"
+                )}
+              >
+                {userInfo.paid}
+              </p>
               <p className="text-center text-xs text-grey mt-2 font-inter max-w-[60ch] mx-auto">
                 {userInfo.bio}
               </p>
